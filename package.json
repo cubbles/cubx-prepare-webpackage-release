@@ -1,0 +1,31 @@
+{
+  "name": "cubx-release-webpackage",
+  "version": "1.0.0",
+  "description": "Module for realesing a version of a component",
+  "main": "bin/cubx-release-webpackage.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cubbles/cubx-release-webpackage.git"
+  },
+  "keywords": [
+    "cubx",
+    "release",
+    "cubbles",
+    "release",
+    "component",
+    "release"
+  ],
+  "author": "Edwin Gamboa <edwingamboa355@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cubbles/cubx-release-webpackage/issues"
+  },
+  "homepage": "https://github.com/cubbles/cubx-release-webpackage#readme",
+  "devDependencies": {},
+  "dependencies": {
+    "fs-extra": "^3.0.1"
+  }
+}
