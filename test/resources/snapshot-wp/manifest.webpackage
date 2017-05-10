@@ -1,0 +1,138 @@
+{
+  "name": "my-webpackage",
+  "groupId": "",
+  "version": "0.1.0-SNAPSHOT",
+  "modelVersion": "9.1.0",
+  "docType": "webpackage",
+  "author": {
+    "name": "Edwin Gamboa",
+    "email": "edwingamboa355@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [],
+  "man": [],
+  "artifacts": {
+    "apps": [
+      {
+        "artifactId": "app",
+        "description": "This is a simple pre-generated app.",
+        "runnables": [
+          {
+            "name": "app",
+            "path": "/index.html",
+            "description": "Call this app as a simple demo."
+          }
+        ]
+      },
+      {
+        "artifactId": "docs",
+        "description": "Generated webpackage documentation.",
+        "runnables": [
+          {
+            "name": "docs",
+            "path": "/index.html",
+            "description": "Show the interface of this component."
+          }
+        ]
+      }
+    ],
+    "elementaryComponents": [
+      {
+        "artifactId": "my-elementary-2",
+        "description": "Elementary component for the fixer-io webservice",
+        "runnables": [
+          {
+            "name": "demo",
+            "path": "/demo/index.html",
+            "description": "Demo app..."
+          },
+          {
+            "name": "docs",
+            "path": "/docs/index.html",
+            "description": "Show the interface of this component."
+          }
+        ],
+        "resources": [
+          "my-elementary-1.html"
+        ],
+        "dependencies": [
+          {
+            "webpackageId": "cubx.core.rte@2.0.1",
+            "artifactId": "cubxpolymer"
+          }
+        ],
+        "slots": []
+      },
+      {
+        "artifactId": "my-elementary-1",
+        "description": "Elementary component for the fixer-io webservice",
+        "runnables": [
+          {
+            "name": "demo",
+            "path": "/demo/index.html",
+            "description": "Demo app..."
+          },
+          {
+            "name": "docs",
+            "path": "/docs/index.html",
+            "description": "Show the interface of this component."
+          }
+        ],
+        "resources": [
+          "my-elementary-1.html"
+        ],
+        "dependencies": [
+          {
+            "webpackageId": "cubx.core.rte@2.0.1",
+            "artifactId": "cubxpolymer"
+          }
+        ],
+        "slots": []
+      }
+    ],
+    "compoundComponents": [
+      {
+        "artifactId": "my-compound",
+        "description": "Component to display the rates in a chart",
+        "runnables": [
+          {
+            "name": "demo",
+            "path": "/demo/index.html",
+            "description": "Demo app..."
+          },
+          {
+            "name": "docs",
+            "path": "/docs/index.html",
+            "description": "Show the interface and dataflow of this component."
+          }
+        ],
+        "resources": [
+          "css/my-compound.css"
+        ],
+        "dependencies": [
+          {
+            "artifactId": "my-elementary-1"
+          },
+          {
+            "webpackageId": "com.incowia.lib.chart-library@0.2.0",
+            "artifactId": "bar-chart"
+          }
+        ],
+        "slots": [],
+        "members": [
+          {
+            "memberId": "elem1",
+            "artifactId": "my-elementary-1"
+          },
+          {
+            "memberId": "chart",
+            "artifactId": "bar-chart"
+          }
+        ],
+        "connections": [],
+        "inits": []
+      }
+    ],
+    "utilities": []
+  }
+}
