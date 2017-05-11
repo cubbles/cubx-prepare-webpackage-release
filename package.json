@@ -1,5 +1,5 @@
 {
-  "name": "cubx-release-webpackage",
+  "name": "cubx-prepare-webpackage-release",
   "version": "1.0.0",
   "description": "Module for realesing a version of a component",
   "main": "lib/cubx-prepare-webpackage-release.js",
