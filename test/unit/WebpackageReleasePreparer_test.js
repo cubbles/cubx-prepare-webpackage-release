@@ -1,6 +1,5 @@
-/* globals describe, beforeEach, it, expect, after */
+/* globals describe, beforeEach, it, expect, after, before */
 (function () {
-  // function (manifestConverter, manifest831, convertedManifest910) {
   'use strict';
   describe('ReleaseWebpackage', function () {
     var WebpackageReleasePreparer;
@@ -13,7 +12,7 @@
     var snapshotDepsWpPath;
     var path;
     var fixedVersion = '0.1.0';
-    beforeEach(function () {
+    before(function () {
       fs = require('fs-extra');
       path = require('path');
 
@@ -22,7 +21,17 @@
       notSnapshotWpPath = path.resolve(__dirname, '../resources/not-snapshot-wp');
       notSnapshotManifestPath = path.join(notSnapshotWpPath, 'manifest.webpackage');
       snapshotDepsWpPath = path.resolve(__dirname, '../resources/snapshot-deps-wp');
+    });
+    after(function () {
+      var manifest = JSON.parse(fs.readFileSync(snapshotManifestPath, 'utf8'));
+      manifest.version = fixedVersion + '-SNAPSHOT';
+      fs.writeFileSync(snapshotManifestPath, JSON.stringify(manifest, null, 2), 'utf8');
 
+      manifest = JSON.parse(fs.readFileSync(notSnapshotManifestPath, 'utf8'));
+      manifest.version = fixedVersion;
+      fs.writeFileSync(notSnapshotManifestPath, JSON.stringify(manifest, null, 2), 'utf8');
+    });
+    beforeEach(function () {
       WebpackageReleasePreparer = require('../../lib/cubx-prepare-webpackage-release');
       wpReleasePreparer = new WebpackageReleasePreparer(snapshotWpPath);
     });
@@ -50,16 +59,16 @@
     });
     describe('#_determineNextDevVersion', function () {
       it('should return a valid \'nextVersion\' for a 3 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.0.0');
-        expect(nextVersion).to.equal('1.0.1-SNAPSHOT');
+        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.0.3');
+        expect(nextVersion).to.equal('1.1.0-SNAPSHOT');
       });
       it('should return a valid \'nextVersion\' for a 2 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.0');
-        expect(nextVersion).to.equal('1.1-SNAPSHOT');
+        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.4');
+        expect(nextVersion).to.equal('1.5.0-SNAPSHOT');
       });
       it('should return a valid \'nextVersion\' for a 1 digit version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('1');
-        expect(nextVersion).to.equal('2-SNAPSHOT');
+        var nextVersion = wpReleasePreparer._determineNextDevVersion('2');
+        expect(nextVersion).to.equal('2.1.0-SNAPSHOT');
       });
       it('throws error if passed version is not a valid fixed version', function () {
         expect(function () {
@@ -130,7 +139,7 @@
     describe('#_loadManifest', function () {
       var expectedManifest;
       beforeEach(function () {
-        expectedManifest = JSON.parse(fs.readFileSync(path.join(snapshotWpPath, 'manifest.webpackage'), 'utf8'));
+        expectedManifest = JSON.parse(fs.readFileSync(snapshotManifestPath), 'utf8');
       });
       it('should load the manifest properly', function () {
         expect(wpReleasePreparer._loadManifest()).to.deep.equal(expectedManifest);
@@ -206,7 +215,7 @@
         it('it should prepare the upload correctly', function () {
           wpReleasePreparer.prepareUpload();
           var newManifest = JSON.parse(fs.readFileSync(snapshotManifestPath, 'utf8'));
-          expect(newManifest.version).to.deep.equal(fixedVersion);
+          expect(newManifest.version).to.equal(fixedVersion);
         });
       });
     });

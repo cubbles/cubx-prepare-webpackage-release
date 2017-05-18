@@ -1,7 +1,7 @@
 {
   "name": "my-webpackage",
   "groupId": "",
-  "version": "0.1.0",
+  "version": "0.1.0-SNAPSHOT",
   "modelVersion": "9.1.0",
   "docType": "webpackage",
   "author": {
