@@ -4,7 +4,7 @@
   "description": "Module for realesing a version of a component",
   "main": "lib/cubx-prepare-webpackage-release.js",
   "bin": {
-    "cubx-release-webpackage": "./bin/cubx-prepare-webpackage-release.js"
+    "cubx-prepare-webpackage-release": "./bin/cubx-prepare-webpackage-release.js"
   },
   "scripts": {
     "prepublish": "npm run-script lint",
