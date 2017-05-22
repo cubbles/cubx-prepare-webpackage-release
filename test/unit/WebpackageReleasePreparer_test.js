@@ -35,63 +35,63 @@
       WebpackageReleasePreparer = require('../../lib/cubx-prepare-webpackage-release');
       wpReleasePreparer = new WebpackageReleasePreparer(snapshotWpPath);
     });
-    describe('#_isValidReleaseVersion', function () {
+    describe('#isValidReleaseVersion', function () {
       it('should return true for a valid 3 digits version', function () {
-        expect(wpReleasePreparer._isValidReleaseVersion('1.0.0')).to.be.true;
+        expect(wpReleasePreparer.isValidReleaseVersion('1.0.0')).to.be.true;
       });
       it('should return true for a valid 1 digit version', function () {
-        expect(wpReleasePreparer._isValidReleaseVersion('1')).to.be.true;
+        expect(wpReleasePreparer.isValidReleaseVersion('1')).to.be.true;
       });
       it('should return false for a development version version', function () {
-        expect(wpReleasePreparer._isValidReleaseVersion('1.2-SNAPSHOT')).to.be.false;
+        expect(wpReleasePreparer.isValidReleaseVersion('1.2-SNAPSHOT')).to.be.false;
       });
     });
-    describe('#_isValidDevVersion', function () {
+    describe('#isValidDevVersion', function () {
       it('should return true for a valid 3 digits version', function () {
-        expect(wpReleasePreparer._isValidDevVersion('1.0.0-SNAPSHOT')).to.be.true;
+        expect(wpReleasePreparer.isValidDevVersion('1.0.0-SNAPSHOT')).to.be.true;
       });
       it('should return true for a valid 1 digit version', function () {
-        expect(wpReleasePreparer._isValidDevVersion('1-SNAPSHOT')).to.be.true;
+        expect(wpReleasePreparer.isValidDevVersion('1-SNAPSHOT')).to.be.true;
       });
       it('should return false for a release version version', function () {
-        expect(wpReleasePreparer._isValidDevVersion('1.2')).to.be.false;
+        expect(wpReleasePreparer.isValidDevVersion('1.2')).to.be.false;
       });
     });
-    describe('#_determineNextDevVersion', function () {
+    describe('#getDefaultNextDevVersion', function () {
       it('should return a valid \'nextVersion\' for a 3 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.0.3');
+        var nextVersion = wpReleasePreparer.getDefaultNextDevVersion('1.0.3');
         expect(nextVersion).to.equal('1.1.0-SNAPSHOT');
       });
       it('should return a valid \'nextVersion\' for a 2 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('1.4');
+        var nextVersion = wpReleasePreparer.getDefaultNextDevVersion('1.4');
         expect(nextVersion).to.equal('1.5.0-SNAPSHOT');
       });
       it('should return a valid \'nextVersion\' for a 1 digit version', function () {
-        var nextVersion = wpReleasePreparer._determineNextDevVersion('2');
+        var nextVersion = wpReleasePreparer.getDefaultNextDevVersion('2');
         expect(nextVersion).to.equal('2.1.0-SNAPSHOT');
       });
       it('throws error if passed version is not a valid fixed version', function () {
         expect(function () {
-          wpReleasePreparer._determineNextDevVersion('1.1.0-SNAPSHOT');
+          wpReleasePreparer.getDefaultNextDevVersion('1.1.0-SNAPSHOT');
         }).to.throw(/Invalid release version/);
       });
     });
-    describe('#_determineReleaseVersion', function () {
+    describe('#getDefaultReleaseVersion', function () {
       it('should return a valid \'releaseVersion\' for a 3 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineReleaseVersion('1.0.0-SNAPSHOT');
+        var nextVersion = wpReleasePreparer.getDefaultReleaseVersion('1.0.0-SNAPSHOT');
         expect(nextVersion).to.equal('1.0.0');
       });
       it('should return a valid \'releaseVersion\' for a 2 digits version', function () {
-        var nextVersion = wpReleasePreparer._determineReleaseVersion('1.1-SNAPSHOT');
+        var nextVersion = wpReleasePreparer.getDefaultReleaseVersion('1.1-SNAPSHOT');
         expect(nextVersion).to.equal('1.1');
       });
       it('should return a valid \'releaseVersion\' for a 1 digit version', function () {
-        var nextVersion = wpReleasePreparer._determineReleaseVersion('2-SNAPSHOT');
+        var nextVersion = wpReleasePreparer.getDefaultReleaseVersion('2-SNAPSHOT');
         expect(nextVersion).to.equal('2');
       });
       it('throws error if passed version is not a valid development version', function () {
         expect(function () {
-          wpReleasePreparer._determineReleaseVersion('1.1.0');
+          wpReleasePreparer.getDefaultReleaseVersion('1.1.0');
         }).to.throw(/Invalid development version/);
       });
     });
