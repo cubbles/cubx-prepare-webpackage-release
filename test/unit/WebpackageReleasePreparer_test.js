@@ -219,5 +219,43 @@
         });
       });
     });
+    describe('#getCurrentVersion', function () {
+      it('should return the manifest', function () {
+        var currentVersion = wpReleasePreparer.getCurrentVersion();
+        expect(currentVersion).to.equal(fixedVersion + '-SNAPSHOT');
+      });
+    });
+    describe('#getManifest', function () {
+      var expectedManifest;
+      beforeEach(function () {
+        expectedManifest = JSON.parse(fs.readFileSync(snapshotManifestPath, 'utf8'));
+      });
+      it('should return the manifest', function () {
+        var manifest = wpReleasePreparer.getManifest();
+        expect(manifest).to.deep.equal(expectedManifest);
+      });
+    });
+    describe('#setNextDevVersion', function () {
+      it('it should detect invalid next development version and throw error', function () {
+        expect(function () {
+          wpReleasePreparer.setNextDevVersion('1.2');
+        }).to.throw(/Invalid development version/);
+      });
+      it('it should set next development version correctly', function () {
+        wpReleasePreparer.setNextDevVersion('1.2-SNAPSHOT');
+        expect(wpReleasePreparer.options.nextVersion).to.equal('1.2-SNAPSHOT');
+      });
+    });
+    describe('#setReleaseVersion', function () {
+      it('it should detect invalid release version and throw error', function () {
+        expect(function () {
+          wpReleasePreparer.setReleaseVersion('1.2-SNAPSHOT');
+        }).to.throw(/Invalid release version/);
+      });
+      it('it should set release version correctly', function () {
+        wpReleasePreparer.setReleaseVersion('1.2');
+        expect(wpReleasePreparer.options.releaseVersion).to.equal('1.2');
+      });
+    });
   });
 })();
