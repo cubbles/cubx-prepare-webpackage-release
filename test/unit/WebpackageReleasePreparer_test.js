@@ -156,6 +156,12 @@
         manifest.version = fixedVersion + '-SNAPSHOT';
         fs.writeFileSync(snapshotManifestPath, JSON.stringify(manifest, null, 2), 'utf8');
       });
+      it('it should detect invalid release version and throw error', function () {
+        expect(function () {
+          wpReleasePreparer.options.releaseVersion = '1.2-SNAPSHOT';
+          wpReleasePreparer.updateManifestToReleaseVersion();
+        }).to.throw(/Invalid release version/);
+      });
       it('should change the manifest version to next development version', function () {
         wpReleasePreparer.updateManifestToReleaseVersion();
         var newManifest = JSON.parse(fs.readFileSync(snapshotManifestPath, 'utf8'));
@@ -176,6 +182,12 @@
         manifest.version = fixedVersion;
         fs.writeFileSync(notSnapshotManifestPath, JSON.stringify(manifest, null, 2), 'utf8');
       });
+      it('it should detect invalid next development version and throw error', function () {
+        expect(function () {
+          wpReleasePreparer.options.nextVersion = '1.2';
+          wpReleasePreparer.updateManifestToNextDevVersion();
+        }).to.throw(/Invalid development version/);
+      });
       it('should change the manifest version to next development version', function () {
         wpReleasePreparer.updateManifestToNextDevVersion();
         var newManifest = JSON.parse(fs.readFileSync(notSnapshotManifestPath, 'utf8'));
@@ -183,18 +195,6 @@
       });
     });
     describe('#prepareUpload', function () {
-      it('it should detect invalid release version and throw error', function () {
-        expect(function () {
-          wpReleasePreparer.options.releaseVersion = '1.2-SNAPSHOT';
-          wpReleasePreparer.prepareUpload();
-        }).to.throw(/Invalid release version/);
-      });
-      it('it should detect invalid next development version and throw error', function () {
-        expect(function () {
-          wpReleasePreparer.options.nextVersion = '1.2';
-          wpReleasePreparer.prepareUpload();
-        }).to.throw(/Invalid development version/);
-      });
       it('it should detect dependencies under development and throw error', function () {
         expect(function () {
           wpReleasePreparer = new WebpackageReleasePreparer(snapshotDepsWpPath);
