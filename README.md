@@ -8,17 +8,17 @@ Module for releasing a new version of a webpackage.
 ### Command line: 
 
 ```
-cubx-prepare-webpackage-release -p <webpackagPath> [-r <releaseVersion> -n <nextVersion>]
+cubx-prepare-webpackage-release -p <webpackagePath> [-r <releaseVersion> -n <nextVersion>]
 ```
 
 ### Other npm modules
 
-```
+```javascript
 var webpackagePath = ...
 var releaseVersion = ...
 var nextVersion = ...
 var options = {releaseVersion: releaseVersion, nextVersion: nextVersion}
-var WebpackageReleasePreparer = requiere('cubx-prepare-webpackage-release');
+var WebpackageReleasePreparer = require('cubx-prepare-webpackage-release');
 var wpReleasePreparer = new WebpackageReleasePreparer(webpackagePath, options);
 wpReleasePreparer.prepareUpload();
 ```
