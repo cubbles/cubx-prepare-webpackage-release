@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 'use strict';
 var WebpackageReleasePreparer = require('../lib/cubx-prepare-webpackage-release');
 var commandLineArgs = require('command-line-args');
